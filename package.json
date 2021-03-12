@@ -8,7 +8,10 @@
     "react-marquee",
     "marky"
   ],
-  "author": "Nick DiMatteo <hello@nickdimatteo.com> & Mike Wagz <mike@selfaware.studio>",
+  "author": "Nick DiMatteo <hello@nickdimatteo.com> (https://nickdimatteo.com)",
+  "contributors": [
+    "Mike Wagz <mike@selfaware.studio> (https://selfaware.studio)"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/ndimatteo/marky/issues"

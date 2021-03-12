@@ -5,7 +5,9 @@ export default function Marquee({
   speed = 0.5,
   direction = 'left',
   pauseOnHover,
+  className,
   children,
+  ...rest
 }) {
   const container = useRef()
   const containerRect = useRect(container)
@@ -25,9 +27,10 @@ export default function Marquee({
   return (
     <div
       ref={container}
-      className="marquee"
+      className={`marquee${className ? ` ${className}` : null}`}
       data-direction={direction}
       data-pause-on-hover={pauseOnHover || null}
+      {...rest}
     >
       <div
         className="marquee--inner"
