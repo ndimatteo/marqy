@@ -18,6 +18,9 @@ export default function Marquee({
   const containerWidth = containerRect?.width
   const itemWidth = itemRect?.width
 
+  const classNames = ['marquee']
+  className && classNames.push(className)
+
   useEffect(() => {
     if (containerWidth && itemWidth) {
       setReps(Math.ceil(containerWidth / itemWidth))
@@ -27,7 +30,7 @@ export default function Marquee({
   return (
     <div
       ref={container}
-      className={`marquee${className ? ` ${className}` : null}`}
+      className={classNames.join(' ')}
       data-direction={direction}
       data-pause-on-hover={pauseOnHover || null}
       {...rest}
