@@ -9,23 +9,43 @@ export default function Marquee({
   children,
   ...rest
 }) {
-  const container = useRef()
-  const containerRect = useRect(container)
-  const item = useRef()
-  const itemRect = useRect(item)
+  const [observe, setObserve] = useState(true)
   const [reps, setReps] = useState(1)
 
+  const container = useRef()
+  const containerRect = useRect(container, { observe })
+  const item = useRef()
+  const itemRect = useRect(item, { observe })
+
+  // set our widths
   const containerWidth = containerRect?.width
   const itemWidth = itemRect?.width
 
   const classNames = ['marquee']
   className && classNames.push(className)
 
+  // calculate clones, then stop observing
   useEffect(() => {
     if (containerWidth && itemWidth) {
       setReps(Math.ceil(containerWidth / itemWidth))
+      setObserve(false)
     }
   }, [containerWidth, itemWidth])
+
+  // resizeObserver on the container to recalculate clones
+  useEffect(() => {
+    if (!container?.current) return
+
+    const resizeObserverInstance = new ResizeObserver(() => {
+      setObserve(true)
+    })
+    resizeObserverInstance.observe(container.current)
+
+    return () => {
+      if (!container.current) return
+      resizeObserverInstance.unobserve(container.current)
+    }
+  }, [container])
 
   return (
     <div
