@@ -1,49 +1,58 @@
-.marquee {
+[data-marquee] {
   @apply relative overflow-hidden;
 
   * {
     @apply whitespace-nowrap;
   }
+}
 
-  &--inner {
-    @apply inline-flex;
-    flex: 1 0 auto;
+[data-marquee-inner] {
+  @apply flex;
+
+  [data-direction='right'] & {
+    @apply justify-end;
+  }
+}
+
+[data-marquee-content] {
+  @apply flex;
+  flex: 1 0 auto;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-play-state: running;
+  will-change: transform;
+
+  [data-direction='left'] & {
     animation-name: marqueeL;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-play-state: running;
-    will-change: transform;
-
-    [data-direction="right"] & {
-      animation-name: marqueeR;
-    }
-
-    [data-pause-on-hover]:hover & {
-      animation-play-state: paused;
-    }
   }
 
-  &--content {
-    @apply inline-flex;
-    flex: 1 0 auto;
-
-    [data-direction="right"] & {
-      transform: translate3d(-100%, 0, 0);
-    }
+  [data-direction='right'] & {
+    animation-name: marqueeR;
   }
 
-  &--item {
-    @apply flex items-center;
-    flex: 1 0 auto;
+  [data-pause-on-hover]:hover & {
+    animation-play-state: paused;
   }
+}
+
+[data-marquee-item] {
+  flex: 1 0 auto;
 }
 
 @keyframes marqueeL {
-  0% { transform: translate3d(0, 0, 0); }
-  100% { transform: translate3d(-50%, 0, 0); }
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-100%, 0, 0);
+  }
 }
 
 @keyframes marqueeR {
-  0% { transform: translate3d(0, 0, 0); }
-  100% { transform: translate3d(50%, 0, 0); }
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(100%, 0, 0);
+  }
 }
