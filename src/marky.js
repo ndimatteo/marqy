@@ -5,7 +5,6 @@ export default function Marquee({
   speed = 0.5,
   direction = 'left',
   pauseOnHover,
-  className,
   children,
   ...rest
 }) {
@@ -17,14 +16,9 @@ export default function Marquee({
   const item = useRef()
   const itemRect = useRect(item, { observe })
 
-  // set our widths
   const containerWidth = containerRect?.width
   const itemWidth = itemRect?.width
 
-  const classNames = ['marquee']
-  className && classNames.push(className)
-
-  // calculate clones, then stop observing
   useEffect(() => {
     if (containerWidth && itemWidth) {
       setReps(Math.ceil(containerWidth / itemWidth))
@@ -32,17 +26,12 @@ export default function Marquee({
     }
   }, [containerWidth, itemWidth])
 
-  // resizeObserver on the container to recalculate clones
   useEffect(() => {
     if (!container?.current) return
-
-    const resizeObserverInstance = new ResizeObserver(() => {
-      setObserve(true)
-    })
+    const resizeObserverInstance = new ResizeObserver(() => setObserve(true))
     resizeObserverInstance.observe(container.current)
-
     return () => {
-      if (!container.current) return
+      if (!container?.current) return
       resizeObserverInstance.unobserve(container.current)
     }
   }, [container])
@@ -50,31 +39,31 @@ export default function Marquee({
   return (
     <div
       ref={container}
-      className={classNames.join(' ')}
+      data-marquee=""
       data-direction={direction}
-      data-pause-on-hover={pauseOnHover || null}
+      data-pause-on-hover={pauseOnHover ? '' : null}
       {...rest}
     >
-      <div
-        className="marquee--inner"
-        style={{
-          animationDuration: `${Math.ceil(
-            (((itemWidth ?? 0) * reps) / 24) * speed
-          )}s`,
-        }}
-      >
+      <div data-marquee-inner="">
         {new Array(2).fill().map((_, clone) => {
           return (
-            <div key={clone} className="marquee--content">
+            <div
+              key={clone}
+              data-marquee-content=""
+              style={{
+                animationDuration: `${Math.ceil(
+                  (((itemWidth ?? 0) * reps) / 24) * speed
+                )}s`,
+              }}
+            >
               {new Array(reps).fill().map((_, rep) => {
                 const isFirstItem = clone === 0 && rep === 0
-
                 return (
                   <div
                     key={rep}
                     ref={isFirstItem ? item : null}
                     aria-hidden={!isFirstItem || null}
-                    className="marquee--item"
+                    data-marquee-item=""
                   >
                     {children}
                   </div>
