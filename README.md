@@ -11,5 +11,5 @@
 ## Install
 
 ```sh
-npm i marky
+npm i marqy
 ```

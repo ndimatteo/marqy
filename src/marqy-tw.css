@@ -12,6 +12,10 @@
   [data-direction='right'] & {
     @apply justify-end;
   }
+
+  @media (prefers-reduced-motion) {
+    @apply overflow-x-scroll;
+  }
 }
 
 [data-marquee-content] {
@@ -32,6 +36,10 @@
 
   [data-pause-on-hover]:hover & {
     animation-play-state: paused;
+  }
+
+  @media (prefers-reduced-motion) {
+    animation: none !important;
   }
 }
 

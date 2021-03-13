@@ -57,3 +57,13 @@
     transform: translate3d(100%, 0, 0);
   }
 }
+
+@media (prefers-reduced-motion) {
+  [data-marquee-inner] {
+    overflow-x: scroll;
+  }
+  
+  [data-marquee-content] {
+    animation: none !important;
+  }
+}

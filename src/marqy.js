@@ -1,31 +1,46 @@
 import React, { useRef, useState, useEffect } from 'react'
 import { useRect } from '@reach/rect'
 
-export default function Marquee({
+export default function Marqy({
   speed = 0.5,
   direction = 'left',
   pauseOnHover,
   children,
   ...rest
 }) {
-  const [observe, setObserve] = useState(true)
+  const [observe, setObserve] = useState({ container: true, item: true })
+  const [widths, setWidths] = useState({ container: null, item: null })
+  const previousWidths = usePrevious(widths)
   const [reps, setReps] = useState(1)
 
   const container = useRef()
-  const containerRect = useRect(container, { observe })
+  const containerRect = useRect(container, { observe: observe.container })
   const item = useRef()
-  const itemRect = useRect(item, { observe })
+  const itemRect = useRect(item, { observe: observe.item })
 
-  const containerWidth = containerRect?.width
-  const itemWidth = itemRect?.width
-
+  // check that we are receiving rects from our refs, then set the widths and reps state
   useEffect(() => {
-    if (containerWidth && itemWidth) {
-      setReps(Math.ceil(containerWidth / itemWidth))
-      setObserve(false)
+    if (containerRect?.width && itemRect?.width) {
+      setWidths({
+        container: containerRect.width,
+        item: itemRect.width,
+      })
+      setReps(Math.ceil(containerRect.width / itemRect.width))
     }
-  }, [containerWidth, itemWidth])
+  }, [containerRect, itemRect])
 
+  // 1. when our widths states are updated, let's check if they are matching the previous rect state
+  // 2. if they are the same, we can stop observing our refs
+  useEffect(() => {
+    if (widths.container && widths.item) {
+      setObserve({
+        container: widths.container !== previousWidths.container,
+        item: widths.item !== previousWidths.item,
+      })
+    }
+  }, [widths])
+
+  // re-observe our refs when the container ref changes size, so we can recalculate widths and reps
   useEffect(() => {
     if (!container?.current) return
     const resizeObserverInstance = new ResizeObserver(() => setObserve(true))
@@ -51,9 +66,9 @@ export default function Marquee({
               key={clone}
               data-marquee-content=""
               style={{
-                animationDuration: `${Math.ceil(
-                  (((itemWidth ?? 0) * reps) / 24) * speed
-                )}s`,
+                animationDuration: `${
+                  ((widths.item ?? 0) * reps) / (100 * speed)
+                }s`,
               }}
             >
               {new Array(reps).fill().map((_, rep) => {
@@ -75,4 +90,13 @@ export default function Marquee({
       </div>
     </div>
   )
+}
+
+// reference a previous state after update
+function usePrevious(value) {
+  const ref = useRef()
+  useEffect(() => {
+    ref.current = value
+  })
+  return ref.current
 }
