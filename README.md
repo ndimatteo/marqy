@@ -1,7 +1,6 @@
 <p align="center">
-<img src="https://user-images.githubusercontent.com/737188/110988166-35472c80-833e-11eb-83cb-3dbf7a3d35cf.png" align="center" height="120" />
+<img src="https://user-images.githubusercontent.com/737188/111051609-54b78580-8422-11eb-8b7a-e85e29382785.png" align="center" height="120" />
 </p>
-
 
 <p align="center">
   <strong>Accessible React Marquees done right</strong><br />
