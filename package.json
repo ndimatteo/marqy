@@ -22,13 +22,14 @@
   "module": "dist/marqy.esm.js",
   "unpkg": "dist/marqy.umd.js",
   "scripts": {
-    "build": "microbundle build src/marqy.js --jsx React.createElement",
-    "watch": "microbundle watch src/marqy.js --jsx React.createElement",
+    "build": "microbundle build src/marqy.tsx --jsx React.createElement",
+    "watch": "microbundle watch src/marqy.tsx --jsx React.createElement",
     "examples": "parcel examples/index.html -d build --open",
     "dev": "concurrently \"yarn watch\" \"yarn examples\"",
     "prepublishOnly": "yarn build"
   },
   "devDependencies": {
+    "@types/react": "^17.0.3",
     "concurrently": "^6.0.0",
     "microbundle": "^0.13.0",
     "parcel-bundler": "^1.12.5",
