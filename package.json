@@ -1,6 +1,6 @@
 {
   "name": "marqy",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Accessible, performant React marquees.",
   "keywords": [
     "react",
@@ -18,23 +18,25 @@
   },
   "homepage": "https://github.com/ndimatteo/marqy",
   "main": "dist/marqy.js",
+  "exports": "./dist/marqy.modern.js",
+  "module": "dist/marqy.esm.js",
+  "unpkg": "dist/marqy.umd.js",
   "scripts": {
-    "build": "babel -D -d dist/ src/",
+    "build": "microbundle build src/marqy.js --jsx React.createElement",
+    "watch": "microbundle watch src/marqy.js --jsx React.createElement",
+    "examples": "parcel examples/index.html -d build --open",
+    "dev": "concurrently \"yarn watch\" \"yarn examples\"",
     "prepublishOnly": "yarn build"
   },
-  "dependencies": {
-    "@babel/runtime": "^7.12.5"
-  },
   "devDependencies": {
-    "@babel/cli": "^7.12.10",
-    "@babel/core": "^7.12.10",
-    "@babel/plugin-proposal-class-properties": "^7.12.1",
-    "@babel/plugin-transform-runtime": "^7.12.10",
-    "@babel/preset-env": "^7.12.11",
-    "@babel/preset-react": "^7.12.10"
+    "concurrently": "^6.0.0",
+    "microbundle": "^0.13.0",
+    "parcel-bundler": "^1.12.5",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
   },
   "peerDependencies": {
-    "react": "^16.14.0",
-    "react-dom": "^16.14.0"
+    "react": "^16.8.0 || 17.x",
+    "react-dom": "^16.8.0 || 17.x"
   }
 }
