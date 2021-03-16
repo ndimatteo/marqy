@@ -12,3 +12,17 @@
 ```sh
 npm i marqy
 ```
+or using yarn
+```sh
+yarn add marqy
+```
+
+## Development
+```
+yarn dev
+```
+
+## Build
+```
+yarn build
+```
