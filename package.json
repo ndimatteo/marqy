@@ -21,6 +21,7 @@
   "exports": "./dist/marqy.modern.js",
   "module": "dist/marqy.esm.js",
   "unpkg": "dist/marqy.umd.js",
+  "types": "dist/marqy.d.ts",
   "scripts": {
     "build": "microbundle build src/marqy.tsx --jsx React.createElement",
     "watch": "microbundle watch src/marqy.tsx --jsx React.createElement",

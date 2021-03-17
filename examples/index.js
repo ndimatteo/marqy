@@ -1,6 +1,6 @@
 import React, { useReducer } from 'react'
 import { render } from 'react-dom'
-import { Marqy } from '../dist/marqy.modern.js'
+import { Marqy } from '../dist/marqy.js'
 import '../styles.css'
 
 function App() {
