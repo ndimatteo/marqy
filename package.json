@@ -1,6 +1,6 @@
 {
   "name": "marqy",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Accessible, performant React marquees.",
   "keywords": [
     "react",
