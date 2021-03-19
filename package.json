@@ -1,6 +1,6 @@
 {
   "name": "marqy",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Accessible, performant React marquees.",
   "keywords": [
     "react",
@@ -18,7 +18,14 @@
   },
   "homepage": "https://github.com/ndimatteo/marqy",
   "main": "dist/marqy.js",
-  "exports": "./dist/marqy.modern.js",
+  "exports": {
+    ".": {
+      "browser": "./dist/marqy.modern.js",
+      "umd": "./dist/marqy.imd.js",
+      "import": "./dist/marqy.esm.js",
+      "require": "./dist/marqy.js"
+    }
+  },
   "module": "dist/marqy.esm.js",
   "unpkg": "dist/marqy.umd.js",
   "types": "dist/marqy.d.ts",
