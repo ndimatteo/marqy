@@ -9,7 +9,12 @@ body {
   font-family: 'Arial Narrow', sans-serif;
 }
 
-h1,h2,h3,h4,h5,h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: 400;
 }
 
@@ -17,18 +22,29 @@ button {
   border: unset;
   border-radius: unset;
   background: unset;
-  color: white;
+  color: block;
   font-size: 20px;
   font-family: serif;
   padding: 0.5em;
-  border: 1px solid white;
-  border-radius:10px;
+  border: 1px solid black;
+  border-radius: 10px;
   outline: unset;
   cursor: pointer;
 }
 
 button:hover {
-  background-color: rgba(255,255,255,0.15)
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+.invert button,
+button.invert {
+  color: white;
+  border: 1px solid white;
+}
+
+.invert button:hover,
+button.invert:hover {
+  background-color: rgba(255, 255, 255, 0.15);
 }
 
 img {
@@ -38,6 +54,10 @@ img {
 .py-025 {
   padding-top: 0.25em;
   padding-bottom: 0.25em;
+}
+
+.p-05 {
+  padding: 0.5em;
 }
 
 .py-05 {

@@ -16,11 +16,8 @@ export function Marqy({
 }: MarqyProps): JSX.Element {
   const [reps, setReps] = React.useState(1)
 
-  const container = React.useRef<HTMLDivElement>(null)
-  const containerWidth = useWidth(container)
-
-  const item = React.useRef<HTMLDivElement>(null)
-  const itemWidth = useWidth(item)
+  const [container, containerWidth] = useWidth()
+  const [item, itemWidth] = useWidth()
 
   React.useEffect(() => {
     if (containerWidth && itemWidth) {
@@ -69,25 +66,22 @@ export function Marqy({
   )
 }
 
-function useWidth<T extends HTMLElement>(ref: React.RefObject<T | null>): number {
+function useWidth() {
   const [width, setWidth] = React.useState(0)
+  const [node, setNode] = React.useState<HTMLElement | null>(null)
+  const observer = React.useRef<ResizeObserver | null>(null)
 
-  React.useEffect(() => {
-    if (!ref?.current) return
+  const disconnect = React.useCallback(() => observer.current?.disconnect(), [])
 
-    const resizeObserverInstance = new ResizeObserver((entries) => {
-      for (let entry of entries) {
-        setWidth(entry.contentRect.width)
-      }
-    })
+  const observe = React.useCallback(() => {
+    observer.current = new ResizeObserver(([entry]) => setWidth(entry.contentRect.width))
+    if (node) observer.current.observe(node)
+  }, [node])
 
-    resizeObserverInstance.observe(ref.current)
+  React.useLayoutEffect(() => {
+    observe()
+    return () => disconnect()
+  }, [disconnect, observe])
 
-    return () => {
-      if (!ref?.current) return
-      resizeObserverInstance.unobserve(ref.current)
-    }
-  }, [ref])
-
-  return width
+  return [setNode, width] as const
 }
