@@ -1,4 +1,11 @@
-import React, { useRef, useState, useEffect } from 'react'
+import * as React from 'react'
+
+export declare interface MarqyProps {
+  speed?: number;
+  direction?: 'left' | 'right';
+  pauseOnHover?: boolean;
+  children: React.ReactNode;
+}
 
 export function Marqy({
   speed = 0.5,
@@ -6,16 +13,16 @@ export function Marqy({
   pauseOnHover,
   children,
   ...rest
-}) {
-  const [reps, setReps] = useState(1)
+}: MarqyProps): JSX.Element {
+  const [reps, setReps] = React.useState(1)
 
-  const container = useRef()
+  const container = React.useRef<HTMLDivElement>(null)
   const containerWidth = useWidth(container)
 
-  const item = useRef()
+  const item = React.useRef<HTMLDivElement>(null)
   const itemWidth = useWidth(item)
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (containerWidth && itemWidth) {
       setReps(Math.ceil(containerWidth / itemWidth))
     }
@@ -30,7 +37,7 @@ export function Marqy({
       {...rest}
     >
       <div data-marquee-inner="">
-        {new Array(2).fill().map((_, clone) => {
+        {new Array(2).fill(0).map((_, clone) => {
           return (
             <div
               key={clone}
@@ -41,7 +48,7 @@ export function Marqy({
                 }s`,
               }}
             >
-              {new Array(reps).fill().map((_, rep) => {
+              {new Array(reps).fill(0).map((_, rep) => {
                 const isFirstItem = clone === 0 && rep === 0
                 return (
                   <div
@@ -62,10 +69,10 @@ export function Marqy({
   )
 }
 
-function useWidth(ref) {
-  const [width, setWidth] = useState(null)
+function useWidth<T extends HTMLElement>(ref: React.RefObject<T | null>): number {
+  const [width, setWidth] = React.useState(0)
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (!ref?.current) return
 
     const resizeObserverInstance = new ResizeObserver((entries) => {
