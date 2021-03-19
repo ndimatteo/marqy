@@ -22,7 +22,7 @@ export function Marqy({
   const item = React.useRef<HTMLDivElement>(null)
   const itemWidth = useWidth(item)
 
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     if (containerWidth && itemWidth) {
       setReps(Math.ceil(containerWidth / itemWidth))
     }
@@ -72,7 +72,7 @@ export function Marqy({
 function useWidth<T extends HTMLElement>(ref: React.RefObject<T | null>): number {
   const [width, setWidth] = React.useState(0)
 
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     if (!ref?.current) return
 
     const resizeObserverInstance = new ResizeObserver((entries) => {
