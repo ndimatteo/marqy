@@ -4,7 +4,8 @@ import { Marqy } from '../dist/marqy.js'
 import '../styles.css'
 
 function App() {
-  const [count, increment] = useReducer((c) => c + 1, 0)
+  const [count, increment] = useReducer((x) => x + 1, 0)
+  const [shown, toggle] = useReducer((x) => !x, true)
 
   return (
     <div>
@@ -40,6 +41,16 @@ function App() {
           </button>
         </div>
       </Marqy>
+      <div className="p-05">
+        <button onClick={toggle}>Toggle</button>
+      </div>
+      {shown ? (
+        <Marqy className="invert text-20 py-05">
+          <p className="mx-05">
+            Toggle me on or off to make sure I have no memory leaks!
+          </p>
+        </Marqy>
+      ) : null}
     </div>
   )
 }
