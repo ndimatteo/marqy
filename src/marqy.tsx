@@ -28,17 +28,17 @@ export function Marqy({
   return (
     <div
       ref={container}
-      data-marquee=""
+      data-marqy=""
       data-direction={direction}
       data-pause-on-hover={pauseOnHover ? '' : null}
       {...rest}
     >
-      <div data-marquee-inner="">
+      <div data-marqy-inner="">
         {new Array(2).fill(0).map((_, clone) => {
           return (
             <div
               key={clone}
-              data-marquee-content=""
+              data-marqy-content=""
               style={{
                 animationDuration: `${
                   ((itemWidth ?? 0) * reps) / (100 * speed)
@@ -52,7 +52,7 @@ export function Marqy({
                     key={rep}
                     ref={isFirstItem ? item : null}
                     aria-hidden={!isFirstItem || null}
-                    data-marquee-item=""
+                    data-marqy-item=""
                   >
                     {children}
                   </div>
