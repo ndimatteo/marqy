@@ -78,7 +78,7 @@ function useWidth() {
     if (node) observer.current.observe(node)
   }, [node])
 
-  React.useLayoutEffect(() => {
+  React.useEffect(() => {
     observe()
     return () => disconnect()
   }, [disconnect, observe])

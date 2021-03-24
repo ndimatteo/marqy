@@ -3,10 +3,6 @@
   overflow: hidden;
 }
 
-[data-marqy] * {
-  white-space: nowrap;
-}
-
 [data-marqy-inner] {
   display: flex;
 }
