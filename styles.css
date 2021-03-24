@@ -4,7 +4,7 @@
 }
 
 [data-marqy] * {
-  whitespace: nowrap;
+  white-space: nowrap;
 }
 
 [data-marqy-inner] {
