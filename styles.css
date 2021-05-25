@@ -33,7 +33,7 @@
 }
 
 [data-marqy-item] {
-  flex: 1 0 auto;
+  flex-grow: 0;
 }
 
 @keyframes marqyL {

@@ -51,6 +51,10 @@ function App() {
           </p>
         </Marqy>
       ) : null}
+      {/* Child with no width */}
+      <Marqy>
+        <p className="text-32 py-025"></p>
+      </Marqy>
     </div>
   )
 }
