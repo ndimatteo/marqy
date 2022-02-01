@@ -21,7 +21,7 @@ export function Marqy({
 
   React.useEffect(() => {
     if (containerWidth && itemWidth) {
-      setReps(Math.ceil(containerWidth / itemWidth))
+      setReps(Math.ceil(containerWidth / itemWidth + 1))
     }
   }, [containerWidth, itemWidth])
 
@@ -33,31 +33,21 @@ export function Marqy({
       data-pause-on-hover={pauseOnHover ? '' : null}
       {...rest}
     >
-      <div data-marqy-inner="">
-        {new Array(2).fill(0).map((_, clone) => {
+      <div data-marqy-inner="" style={{
+        // @ts-ignore
+        '--marqy-x': `-${Math.round(itemWidth)}px`,
+        '--marqy-d': `${itemWidth / (100 * speed)}s`,
+      }}>
+        {new Array(reps).fill(0).map((_, rep) => {
+          const isFirstItem = rep === 0
           return (
             <div
-              key={clone}
-              data-marqy-content=""
-              style={{
-                animationDuration: `${
-                  ((itemWidth ?? 0) * reps) / (100 * speed)
-                }s`,
-              }}
+              key={rep}
+              ref={isFirstItem ? item : null}
+              aria-hidden={!isFirstItem || null}
+              data-marqy-item=""
             >
-              {new Array(reps).fill(0).map((_, rep) => {
-                const isFirstItem = clone === 0 && rep === 0
-                return (
-                  <div
-                    key={rep}
-                    ref={isFirstItem ? item : null}
-                    aria-hidden={!isFirstItem || null}
-                    data-marqy-item=""
-                  >
-                    {children}
-                  </div>
-                )
-              })}
+              {children}
             </div>
           )
         })}
