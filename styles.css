@@ -9,7 +9,7 @@
   animation-timing-function: linear;
   animation-iteration-count: infinite;
   animation-play-state: running;
-  animation-duration: var(--marqy-d);
+  animation-duration: calc(var(--marqy-x) / (100 * var(--marqy-speed)) * 1s);
   will-change: transform;
 }
 
@@ -38,7 +38,7 @@
     transform: translate3d(0, 0, 0);
   }
   100% {
-    transform: translate3d(var(--marqy-x), 0, 0);
+    transform: translate3d(calc(-1px * var(--marqy-x)), 0, 0);
   }
 }
 
@@ -47,7 +47,7 @@
     transform: translate3d(0, 0, 0);
   }
   100% {
-    transform: translate3d(calc(-1 * var(--marqy-x)), 0, 0);
+    transform: translate3d(calc(1px * var(--marqy-x)), 0, 0);
   }
 }
 

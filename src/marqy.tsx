@@ -35,8 +35,8 @@ export function Marqy({
     >
       <div data-marqy-inner="" style={{
         // @ts-ignore
-        '--marqy-x': `-${Math.round(itemWidth)}px`,
-        '--marqy-d': `${itemWidth / (100 * speed)}s`,
+        '--marqy-x': itemWidth,
+        '--marqy-speed': speed,
       }}>
         {new Array(reps).fill(0).map((_, rep) => {
           const isFirstItem = rep === 0
