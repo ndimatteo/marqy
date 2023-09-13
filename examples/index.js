@@ -28,8 +28,8 @@ function App() {
           <p className="text-32 mx-05">Render whatever you want:</p>
           <img
             width="100"
-            src="https://www.fillmurray.com/g/200/200"
-            alt="Bill Murray"
+            src="https://picsum.photos/seed/picsum/550/350"
+            alt="Lorem Picsum"
           />
         </div>
       </Marqy>
