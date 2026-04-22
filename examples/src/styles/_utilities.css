@@ -1,0 +1,23 @@
+@utility grid-stack {
+  grid-area: 1/-1;
+}
+
+@utility clean-btn {
+  appearance: none;
+  text-decoration-line: none;
+}
+
+/* Scrollbar helpers */
+@utility hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility overflow-scroll {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}

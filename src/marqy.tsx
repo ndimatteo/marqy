@@ -1,29 +1,43 @@
 import * as React from 'react'
 
-export declare interface MarqyProps {
-  speed?: number;
-  direction?: 'left' | 'right';
-  pauseOnHover?: boolean;
-  children: React.ReactNode;
+export interface MarqyProps extends React.ComponentPropsWithoutRef<'div'> {
+  speed?: number
+  direction?: 'left' | 'right' | 'up' | 'down'
+  pauseOnHover?: boolean
+  manual?: boolean
+  children: React.ReactNode
 }
 
 export function Marqy({
   speed = 0.5,
   direction = 'left',
   pauseOnHover,
+  manual = false,
   children,
   ...rest
-}: MarqyProps): JSX.Element {
+}: MarqyProps): React.ReactElement {
   const [reps, setReps] = React.useState(1)
 
-  const [container, containerWidth] = useWidth()
-  const [item, itemWidth] = useWidth()
+  const [container, containerDimensions] = useDimensions()
+  const [item, itemDimensions] = useDimensions()
+
+  const isVertical = direction === 'up' || direction === 'down'
+
+  const getAnimationDuration = React.useCallback(
+    (itemDimension: number) => {
+      return `${((itemDimension ?? 0) * reps) / (100 * speed)}s`
+    },
+    [reps, speed]
+  )
 
   React.useEffect(() => {
-    if (containerWidth && itemWidth) {
-      setReps(Math.ceil(containerWidth / itemWidth))
+    if (!isVertical && containerDimensions.width && itemDimensions.width) {
+      setReps(Math.ceil(containerDimensions.width / itemDimensions.width))
     }
-  }, [containerWidth, itemWidth])
+    if (isVertical && containerDimensions.height && itemDimensions.height) {
+      setReps(Math.ceil(containerDimensions.height / itemDimensions.height))
+    }
+  }, [isVertical, containerDimensions, itemDimensions])
 
   return (
     <div
@@ -34,54 +48,50 @@ export function Marqy({
       {...rest}
     >
       <div data-marqy-inner="">
-        {new Array(2).fill(0).map((_, clone) => {
-          return (
-            <div
-              key={clone}
-              data-marqy-content=""
-              style={{
-                animationDuration: `${
-                  ((itemWidth ?? 0) * reps) / (100 * speed)
-                }s`,
-              }}
-            >
-              {new Array(reps).fill(0).map((_, rep) => {
-                const isFirstItem = clone === 0 && rep === 0
-                return (
-                  <div
-                    key={rep}
-                    ref={isFirstItem ? item : null}
-                    aria-hidden={!isFirstItem || null}
-                    data-marqy-item=""
-                  >
-                    {children}
-                  </div>
-                )
-              })}
-            </div>
-          )
-        })}
+        {new Array(2).fill(0).map((_, clone) => (
+          <div
+            key={clone}
+            data-marqy-content=""
+            {...(manual
+              ? { 'data-marqy-static': getAnimationDuration(isVertical ? itemDimensions.height : itemDimensions.width) }
+              : { style: { animationDuration: getAnimationDuration(isVertical ? itemDimensions.height : itemDimensions.width) } }
+            )}
+          >
+            {new Array(reps).fill(0).map((_, rep) => {
+              const isFirstItem = clone === 0 && rep === 0
+              return (
+                <div
+                  key={rep}
+                  ref={isFirstItem ? item : null}
+                  aria-hidden={!isFirstItem || null}
+                  data-marqy-item=""
+                >
+                  {children}
+                </div>
+              )
+            })}
+          </div>
+        ))}
       </div>
     </div>
   )
 }
 
-function useWidth() {
-  const [width, setWidth] = React.useState(0)
-  const [node, setNode] = React.useState<HTMLElement | null>(null)
+function useDimensions() {
+  const [dimensions, setDimensions] = React.useState({ width: 0, height: 0 })
   const observer = React.useRef<ResizeObserver | null>(null)
 
-  const disconnect = React.useCallback(() => observer.current?.disconnect(), [])
+  const ref = React.useCallback((node: HTMLElement | null) => {
+    observer.current?.disconnect()
+    if (!node) return
+    observer.current = new ResizeObserver(([entry]) =>
+      setDimensions({
+        width: entry.contentRect.width,
+        height: entry.contentRect.height,
+      })
+    )
+    observer.current.observe(node)
+  }, [])
 
-  const observe = React.useCallback(() => {
-    observer.current = new ResizeObserver(([entry]) => setWidth(entry.contentRect.width))
-    if (node) observer.current.observe(node)
-  }, [node])
-
-  React.useEffect(() => {
-    observe()
-    return () => disconnect()
-  }, [disconnect, observe])
-
-  return [setNode, width] as const
+  return [ref, dimensions] as const
 }

@@ -1,0 +1,123 @@
+@layer components {
+  /* Headline Copy */
+
+  .text-h1 {
+    font-family: var(--font-headline);
+    font-size: calc(var(--spacing) * 15);
+    font-weight: 700;
+    line-height: 1;
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    @media (width >= 800px) {
+      font-size: calc(var(--spacing) * 20);
+    }
+
+    @supports ((text-box-trim: trim-both) and (text-box-edge: cap alphabetic)) {
+      text-box-trim: trim-both;
+      text-box-edge: cap alphabetic;
+    }
+  }
+
+  .text-h3 {
+    font-family: var(--font-headline);
+    font-size: calc(var(--spacing) * 12);
+    font-weight: 700;
+    line-height: 1;
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    @media (width >= 800px) {
+      font-size: calc(var(--spacing) * 14);
+    }
+
+    @supports ((text-box-trim: trim-both) and (text-box-edge: cap alphabetic)) {
+      text-box-trim: trim-both;
+      text-box-edge: cap alphabetic;
+    }
+  }
+
+  .text-jumbo {
+    font-family: var(--font-headline);
+    font-size: calc(var(--spacing) * 15);
+    font-weight: 700;
+    line-height: 1;
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    @media (width >= 800px) {
+      font-size: calc(var(--spacing) * 20);
+    }
+
+    @supports ((text-box-trim: trim-both) and (text-box-edge: cap alphabetic)) {
+      text-box-trim: trim-both;
+      text-box-edge: cap alphabetic;
+    }
+  }
+
+  .text-p0 {
+    font-family: var(--font-mono);
+    font-size: calc(var(--spacing) * 8);
+    font-weight: 700;
+    line-height: 1;
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    @media (width >= 800px) {
+      font-size: calc(var(--spacing) * 10);
+    }
+
+    @supports ((text-box-trim: trim-both) and (text-box-edge: cap alphabetic)) {
+      text-box-trim: trim-both;
+      text-box-edge: cap alphabetic;
+    }
+  }
+
+  .text-p1 {
+    font-family: var(--font-mono);
+    font-size: calc(var(--spacing) * 10);
+    font-weight: 700;
+    line-height: 1;
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    @media (width >= 800px) {
+      font-size: calc(var(--spacing) * 15);
+    }
+
+    @supports ((text-box-trim: trim-both) and (text-box-edge: cap alphabetic)) {
+      text-box-trim: trim-both;
+      text-box-edge: cap alphabetic;
+    }
+  }
+}

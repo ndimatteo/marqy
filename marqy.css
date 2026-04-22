@@ -1,0 +1,131 @@
+[data-marqy] {
+  position: relative;
+  width: 100%;
+}
+
+[data-marqy][data-direction='left'],
+[data-marqy][data-direction='right'] {
+  overflow-x: clip;
+}
+
+[data-marqy][data-direction='up'],
+[data-marqy][data-direction='down'] {
+  overflow-y: clip;
+}
+
+[data-marqy-inner] {
+  display: flex;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+[data-marqy][data-direction='up'] [data-marqy-inner],
+[data-marqy][data-direction='down'] [data-marqy-inner],
+[data-marqy][data-direction='up'] [data-marqy-content],
+[data-marqy][data-direction='down'] [data-marqy-content] {
+  flex-direction: column;
+}
+
+[data-marqy-inner]::-webkit-scrollbar {
+  display: none;
+}
+
+[data-marqy][data-direction='right'] [data-marqy-inner] {
+  justify-content: flex-end;
+}
+
+[data-marqy][data-direction='down'] [data-marqy-inner],
+[data-marqy][data-direction='down'] [data-marqy-content] {
+  justify-content: flex-end;
+}
+
+[data-marqy-content] {
+  display: flex;
+  flex: 1 0 auto;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-play-state: running;
+  will-change: transform;
+}
+
+[data-marqy-static] [data-marqy-content] {
+  animation: none !important;
+}
+
+[data-marqy][data-direction='left'] [data-marqy-content] {
+  animation-name: marqyL;
+}
+
+[data-marqy][data-direction='right'] [data-marqy-content] {
+  animation-name: marqyR;
+}
+
+[data-marqy][data-direction='up'] [data-marqy-content] {
+  animation-name: marqyU;
+}
+
+[data-marqy][data-direction='down'] [data-marqy-content] {
+  animation-name: marqyD;
+}
+
+[data-marqy][data-pause-on-hover]:hover
+  > [data-marqy-inner]
+  > [data-marqy-content] {
+  animation-play-state: paused;
+}
+
+[data-marqy-item] {
+  flex-grow: 0;
+}
+
+@keyframes marqyL {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+
+@keyframes marqyR {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(100%, 0, 0);
+  }
+}
+
+@keyframes marqyU {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, -100%, 0);
+  }
+}
+
+@keyframes marqyD {
+  0% {
+    transform: translate3d(0, -100%, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion) {
+  [data-marqy][data-direction='left'] [data-marqy-inner],
+  [data-marqy][data-direction='right'] [data-marqy-inner] {
+    overflow-x: scroll;
+  }
+
+  [data-marqy][data-direction='up'],
+  [data-marqy][data-direction='down'] {
+    overflow-y: scroll;
+  }
+
+  [data-marqy-content] {
+    animation: none !important;
+  }
+}

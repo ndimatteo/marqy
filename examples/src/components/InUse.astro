@@ -1,0 +1,89 @@
+---
+import { getImage } from 'astro:assets'
+
+import SectionHeadline from '../components/SectionHeadline'
+import InUseExamples from '../components/InUseExamples'
+
+import baggu from '../assets/baggu.jpg'
+import bluesky from '../assets/bluesky.jpg'
+import clams from '../assets/clams-lol.jpg'
+import coconutClub from '../assets/coconut-club.jpg'
+import lucci from '../assets/lucci.jpg'
+import philaMuseum from '../assets/phila-museum.jpg'
+import redRooster from '../assets/red-rooster.jpg'
+import sanity from '../assets/sanity.jpg'
+import usal from '../assets/usal.jpg'
+import vacation from '../assets/vacation.jpg'
+
+const examples = [
+  {
+    title: 'baggu.com',
+    url: 'https://baggu.com/',
+    img: baggu,
+  },
+  {
+    title: 'vacation.inc',
+    url: 'https://www.vacation.inc/',
+    img: vacation,
+  },
+  {
+    title: 'clams.lol',
+    url: 'https://www.clams.lol/',
+    img: clams,
+  },
+  {
+    title: 'sanity.io',
+    url: 'https://www.sanity.io/',
+    img: sanity,
+  },
+  {
+    title: 'thecoconutclubexuma.com',
+    url: 'https://www.thecoconutclubexuma.com/',
+    img: coconutClub,
+  },
+  {
+    title: 'luccilambrusco.com',
+    url: 'https://www.luccilambrusco.com/',
+    img: lucci,
+  },
+  {
+    title: 'bsky.social',
+    url: 'https://bsky.social/about',
+    img: bluesky,
+  },
+  {
+    title: 'philamuseum.org',
+    url: 'https://www.philamuseum.org/',
+    img: philaMuseum,
+  },
+  {
+    title: 'redroostercoffee.com',
+    url: 'https://www.redroostercoffee.com/',
+    img: redRooster,
+  },
+  {
+    title: 'usalproject.com',
+    url: 'https://www.usalproject.com/',
+    img: usal,
+  }
+]
+
+const examplesWithImages = await Promise.all(
+  examples.map(async (example) => ({
+    ...example,
+    img: await getImage({
+      src: example.img,
+      format: 'avif',
+      widths: [600, 1200],
+      sizes: '(min-width: 768px) 50vw, 75vw',
+    }),
+  }))
+)
+---
+
+<section class="relative overflow-hidden border-t">
+  <SectionHeadline text="In Use" client:load />
+  <div class="py-20 md:px-80 md:py-40">
+    <InUseExamples examples={examplesWithImages} client:load />
+  </div>
+</section>

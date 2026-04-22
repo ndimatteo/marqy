@@ -1,0 +1,59 @@
+---
+import { Code } from 'astro:components'
+import SectionHeadline from '../components/SectionHeadline'
+import CopyButton from '../components/CopyButton'
+
+const installCode = `yarn add marqy`
+
+const usageCode = `import { Marqy } from 'marqy'
+import 'marqy/dist/marqy.css'
+
+<Marqy speed={1} direction="left" pauseOnHover>
+  <span>Your content here</span>
+</Marqy>`
+
+const props = [
+  { name: 'speed', type: 'number', default: '0.5', description: 'Scroll speed multiplier' },
+  { name: 'direction', type: "'left' | 'right' | 'up' | 'down'", default: "'left'", description: 'Direction of scroll' },
+  { name: 'pauseOnHover', type: 'boolean', default: 'false', description: 'Pauses the animation on hover' },
+  { name: 'manual', type: 'boolean', default: 'false', description: 'Renders without applying CSS animations' },
+  { name: 'children', type: 'React.ReactNode', default: '—', description: 'Content to repeat inside the marqy' },
+]
+---
+
+<section class="md:p-40 relative overflow-hidden transform-[translateZ(0)] border-t">
+  <SectionHeadline text="Quick Start" client:load />
+  <div class="grid grid-cols-2 gap-20 sm:gap-40 p-20 md:px-80 md:py-0 items-center">
+    <div class="flex flex-col gap-20 sm:gap-40 col-span-2 lg:col-span-1">
+      <div>
+        <div class="flex justify-between mb-10 items-center bg-white text-black pl-10 rounded-5">
+          <p class="text-h3 uppercase">Install</p>
+          <CopyButton text={installCode} client:load />
+        </div>
+        <Code code={installCode} lang="sh" theme="css-variables" />
+      </div>
+      <div>
+        <div class="flex justify-between mb-10 items-center bg-white text-black pl-10 rounded-5">
+          <p class="text-h3 uppercase">Usage</p>
+          <CopyButton text={usageCode} client:load />
+        </div>
+        <Code code={usageCode} lang="jsx" theme="css-variables" />
+      </div>
+    </div>
+    <div class="col-span-2 lg:col-span-1">
+      <!-- <p class="text-p1 border-b pb-10">Props</p> -->
+      <div class="@container flex flex-col divide-y divide-white/20">
+        {props.map((prop) => (
+          <div class="grid grid-cols-[15ch_1fr] @min-[50rem]:grid-cols-[12ch_1fr_auto] gap-10 pt-10 first:pt-0 pb-20 items-start">
+            <code class="font-mono font-bold text-neon">{prop.name}</code>
+            <div class="flex flex-col gap-y-8 items-start">
+              <code class="font-mono text-white/60 text-end @min-[50rem]:text-start">{prop.type}</code>
+              {prop.default !== '—' && <span class="shrink-0 uppercase text-p0 bg-white/15 p-5 rounded-5"> Default: <code class="normal-case text-white/60">{prop.default}</code></span>}
+            </div>
+            <span class="col-span-2 @min-[50rem]:col-span-1 inline-flex items-center justify-between gap-x-10 font-sans">{prop.description}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

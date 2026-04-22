@@ -1,6 +1,6 @@
 {
   "name": "marqy",
-  "version": "0.0.9",
+  "version": "1.0.0",
   "description": "Accessible, performant React marquees.",
   "keywords": [
     "react",
@@ -21,8 +21,9 @@
   "module": "dist/marqy.esm.js",
   "unpkg": "dist/marqy.umd.js",
   "exports": {
+    "./dist/marqy.css": "./dist/marqy.css",
     ".": {
-      "browser": "./dist/marqy.modern.js",
+      "types": "./dist/marqy.d.ts",
       "umd": "./dist/marqy.umd.js",
       "import": "./dist/marqy.esm.js",
       "require": "./dist/marqy.js"
@@ -30,22 +31,35 @@
   },
   "types": "dist/marqy.d.ts",
   "scripts": {
-    "build": "microbundle build src/marqy.tsx --jsx React.createElement",
+    "build": "microbundle build src/marqy.tsx --jsx React.createElement && cp mary.css dist/marqy.css",
     "watch": "microbundle watch src/marqy.tsx --jsx React.createElement",
-    "examples": "parcel examples/index.html -d build --open",
+    "install:examples": "yarn --cwd examples install",
+    "examples": "yarn --cwd examples dev",
+    "predev": "yarn build",
     "dev": "concurrently \"yarn watch\" \"yarn examples\"",
+    "size": "size-limit",
     "prepublishOnly": "yarn build"
   },
+  "size-limit": [
+    {
+      "path": "dist/marqy.esm.js",
+      "limit": "2 KB"
+    }
+  ],
   "devDependencies": {
-    "@types/react": "^18.2.21",
-    "concurrently": "^8.2.1",
+    "@size-limit/preset-small-lib": "^12.1.0",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
+    "concurrently": "^9.1.2",
     "microbundle": "^0.15.1",
     "parcel-bundler": "^1.12.5",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "size-limit": "^12.1.0"
   },
   "peerDependencies": {
-    "react": "^16.8.0 || 17.x || 18.x",
-    "react-dom": "^16.8.0 || 17.x || 18.x"
-  }
+    "react": "17.x || 18.x || 19.x",
+    "react-dom": "17.x || 18.x || 19.x"
+  },
+  "dependencies": {}
 }

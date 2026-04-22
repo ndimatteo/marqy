@@ -1,0 +1,11 @@
+---
+import SectionHeadline from '../components/SectionHeadline'
+import MarqyPlayground from './MarqyPlayground'
+---
+
+<section class="md:p-40 relative overflow-hidden">
+  <SectionHeadline text="Playground" client:load />
+  <div class="p-20 md:px-80 md:py-0">
+    <MarqyPlayground client:only="react" />
+  </div>
+</section>

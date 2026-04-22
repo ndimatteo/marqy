@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(yarn install:*)",
+      "Bash(node_modules/.bin/astro --version)",
+      "Bash(npx update-browserslist-db@latest)",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(json.dumps\\(d.get\\('exports', {}\\), indent=2\\)\\)\")",
+      "WebFetch(domain:base-ui.com)",
+      "Bash(yarn add:*)",
+      "Bash(md5 /Users/ndimatteo/code/plugins/marqy/examples/src/components/MarqyPlayground.tsx)"
+    ]
+  }
+}

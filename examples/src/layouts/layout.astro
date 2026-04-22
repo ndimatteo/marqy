@@ -1,0 +1,107 @@
+---
+import { Font } from 'astro:assets'
+import '../styles/app.css'
+import 'react-resizable/css/styles.css'
+
+import Footer from '../components/Footer.astro'
+
+interface Props {
+  title?: string
+}
+
+const { title = 'MARQY: High-fidelity loops for modern interfaces' } = Astro.props
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <Font cssVariable="--font-akkurat-mono" preload />
+    <Font cssVariable="--font-grtsk" preload />
+    <Font cssVariable="--font-grtsk-wide" preload />
+
+    <link rel="icon" href="/favicon.ico" sizes="32x32">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <script>
+      (async function () {
+        const TEXT = 'MARQY/';
+        const SIZE = 32;
+        const SPEED = 0.25;
+        const BG = '#000000';
+        const COLOR = '#ffffff';
+        const FAVICON_UPDATE_INTERVAL = 1000 / 15; // ~15fps for favicon updates
+
+        const canvas = document.createElement('canvas');
+        canvas.width = SIZE;
+        canvas.height = SIZE;
+        const ctx = canvas.getContext('2d');
+
+        if (!ctx || !canvas.toDataURL) return;
+
+        await document.fonts.ready;
+        const match = [...document.fonts].find(
+          (f) => f.family.includes('GrtskTera') && !f.family.includes('fallback')
+        );
+        const fontName = match ? match.family : 'monospace';
+        const FONT = `500 14px ${fontName}`;
+
+        ctx.font = FONT;
+        const textWidth = ctx.measureText(TEXT).width;
+
+        let x = 0;
+        let rafId: number | null = null;
+        let lastFaviconUpdate = 0;
+
+        let link = document.querySelector<HTMLLinkElement>("link[rel~='icon'][type='image/svg+xml']");
+        if (!link) {
+          link = document.createElement('link');
+          link.rel = 'icon';
+          document.head.appendChild(link);
+        }
+
+        function draw(timestamp: number) {
+          if (!ctx || !link) return;
+
+          x -= SPEED;
+          if (x <= -textWidth) x = 0;
+
+          ctx.fillStyle = BG;
+          ctx.fillRect(0, 0, SIZE, SIZE);
+
+          ctx.font = FONT;
+          ctx.fillStyle = COLOR;
+          ctx.textBaseline = 'middle';
+
+          // draw twice side by side so the loop is seamless
+          ctx.fillText(TEXT, x, SIZE / 2);
+          ctx.fillText(TEXT, x + textWidth, SIZE / 2);
+
+          // only push to favicon at ~15fps
+          if (timestamp - lastFaviconUpdate >= FAVICON_UPDATE_INTERVAL) {
+            link.href = canvas.toDataURL('image/png');
+            lastFaviconUpdate = timestamp;
+          }
+
+          rafId = requestAnimationFrame(draw);
+        }
+
+        document.addEventListener('visibilitychange', () => {
+          if (document.hidden) {
+            if (rafId !== null) cancelAnimationFrame(rafId);
+          } else {
+            rafId = requestAnimationFrame(draw);
+          }
+        });
+
+        rafId = requestAnimationFrame(draw);
+      })();
+    </script>
+  </head>
+  <body>
+    <slot />
+
+    <Footer />
+  </body>
+</html>

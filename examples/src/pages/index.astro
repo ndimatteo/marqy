@@ -1,0 +1,56 @@
+---
+import Layout from '../layouts/layout.astro'
+import MarqyHero from '../components/MarqyHero'
+import MarqySpeedDemo from '../components/MarqySpeedDemo'
+import MarqyVerticalDemo from '../components/MarqyVerticalDemo'
+import InUse from '../components/InUse.astro'
+import QuickStart from '../components/QuickStart.astro'
+import Playground from '../components/Playground.astro'
+---
+
+<Layout>
+
+  <!-- Nav -->
+  <header class="sticky top-0 inset-x-0 w-full z-10 flex items-center justify-between backdrop-blur-sm border-b p-20 bg-black/60">
+    <h1 class="flex items-baseline">
+      <span class="text-h1 uppercase">marqy</span>
+      <span class="text-p0 text-white/50">v_1.0.0</span>
+    </h1>
+    <nav>
+      <ul class="flex items-center gap-10">
+        <li>
+          <a
+            href="https://github.com/ndimatteo/marqy"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group text-p1"
+          >[ <span class="uppercase group-hover:animate-flicker-opacity">GitHub</span> ]</a>
+        </li>
+        <li>
+          <a
+            href="https://www.npmjs.com/package/marqy"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group text-p1"
+          >
+          [ <span class="uppercase group-hover:animate-flicker-opacity">NPM</span> ]
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero (React island) -->
+  <MarqyHero client:load />
+
+  <Playground />
+
+  <MarqyVerticalDemo client:load />
+
+  <QuickStart />
+
+  <MarqySpeedDemo client:load />
+
+  <InUse />
+
+</Layout>

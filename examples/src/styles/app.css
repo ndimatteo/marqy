@@ -1,0 +1,397 @@
+@import 'tailwindcss';
+@import './_base.css';
+@import './_components.css';
+@import './_utilities.css';
+@import 'marqy/dist/marqy.css';
+
+:root {
+  --astro-code-foreground: var(--color-neon);
+  --astro-code-background: --alpha(var(--color-white) / 10%);
+  --astro-code-token-constant: var(--color-white);
+  --astro-code-token-string: var(--color-white);
+  --astro-code-token-comment: --alpha(var(--color-white) / 40%);
+  --astro-code-token-keyword: var(--color-white);
+  --astro-code-token-parameter: var(--color-white);
+  --astro-code-token-function: var(--color-neon);
+  --astro-code-token-string-expression: --alpha(var(--color-white) / 60%);
+  --astro-code-token-punctuation: var(--color-white);
+  --astro-code-token-link: var(--color-purple);
+}
+
+@theme {
+  /* Defaults */
+  --spacing: 0.1rem;
+  --leading-*: initial;
+  --tracking-*: initial;
+  --text-*: initial;
+
+  /* Breakpoints */
+  --breakpoint-*: initial;
+  --breakpoint-xs: 480px;
+  --breakpoint-sm: 800px;
+  --breakpoint-md: 1000px;
+  --breakpoint-lg: 1200px;
+  --breakpoint-xl: 1400px;
+  --breakpoint-xxl: 1600px;
+
+  /* Container Sizes */
+  --container-*: initial;
+  --container-100: 10rem;
+  --container-200: 20rem;
+  --container-300: 30rem;
+  --container-400: 40rem;
+  --container-500: 50rem;
+  --container-600: 60rem;
+  --container-700: 70rem;
+  --container-800: 80rem;
+
+  /* Default Colors */
+  --color-*: initial;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+  --color-black: #000000;
+  --color-white: #f1f1f1;
+  /* Brand Colors */
+  --color-neon: #ceff1a;
+  --color-purple: #7b2fff;
+  --color-red: #ff6b39;
+
+  /* Fonts */
+  --font-mono: var(--font-akkurat-mono), 'Courier', 'monospace';
+  --font-sans: var(--font-grtsk), 'Helvetica Neue', 'helvetica', 'sans-serif';
+  --font-headline:
+    var(--font-grtsk-wide), 'Helvetica Neue', 'helvetica', 'sans-serif';
+
+  --text-trim-both: trim-both;
+  --text-trim-start: trim-start;
+  --text-trim-end: trim-end;
+
+  /* Misc. */
+  --ease-in-out-quart: cubic-bezier(0.77, 0, 0.175, 1);
+
+  --animate-flicker-bg: flickerBackground 0.1s steps(2, end) 3 forwards;
+  --animate-flicker-opacity: flickerOpacity 0.1s steps(2, end) 3 forwards;
+  @keyframes flickerBackground {
+    from {
+      background: transparent;
+    }
+  }
+
+  @keyframes flickerOpacity {
+    from {
+      opacity: 0;
+    }
+  }
+
+  --animate-fade-in: fadeIn 0.3s linear forwards;
+  --animate-fade-out: fadeOut 0.3s linear forwards;
+  --animate-scale-up: scaleUp 20s linear both;
+  --animate-up-in: upIn 0.6s cubic-bezier(0.78, 0, 0.22, 1) forwards;
+  --animate-up-out: upOut 0.6s cubic-bezier(0.78, 0, 0.22, 1) forwards;
+  --animate-down-in: downIn 0.6s cubic-bezier(0.78, 0, 0.22, 1) forwards;
+  --animate-down-out: downOut 0.6s cubic-bezier(0.78, 0, 0.22, 1) forwards;
+  --animate-blink: blink 1s step-start infinite;
+  @keyframes blink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+  @keyframes scaleUp {
+    from {
+      transform: scale(1);
+    }
+    to {
+      transform: scale(1.3);
+    }
+  }
+  @keyframes upIn {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0%);
+    }
+  }
+  @keyframes upOut {
+    from {
+      transform: translateY(0%);
+    }
+    to {
+      transform: translateY(-100%);
+    }
+  }
+  @keyframes downIn {
+    from {
+      transform: translateY(-100%);
+    }
+    to {
+      transform: translateY(0%);
+    }
+  }
+  @keyframes downOut {
+    from {
+      transform: translateY(0%);
+    }
+    to {
+      transform: translateY(100%);
+    }
+  }
+}
+
+@utility text-* {
+  font-size: calc(var(--spacing) * --value(number));
+}
+
+@utility text-trim-* {
+  text-box-trim: --value(--text-trim-*, 'none');
+}
+
+@utility text-edge-* {
+  text-box-edge: --value(
+    --text-edge-*,
+    'text',
+    'alphabetic',
+    'ideographic',
+    'cap',
+    'ex',
+    [*]
+  );
+}
+
+@utility leading-* {
+  line-height: calc(--value(number) / 100);
+}
+
+@utility tracking-* {
+  letter-spacing: calc(--value(number) * 0.01em);
+}
+
+@utility -tracking-* {
+  letter-spacing: calc((--value(number) * -1) * 0.01em);
+}
+
+@utility wght-* {
+  font-variation-settings: 'wght' --value(number);
+}
+
+@utility rounded-* {
+  border-radius: calc(--value(number) * 0.1rem);
+}
+
+@utility fade-x-* {
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 calc(--value(number) * 0.1rem),
+    #000 calc(100% - (--value(number) * 0.1rem)),
+    transparent 100%
+  );
+}
+@utility fade-l-* {
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 calc(--value(number) * 0.1rem),
+    #000 100%
+  );
+}
+@utility fade-r-* {
+  mask-image: linear-gradient(
+    90deg,
+    #000 0,
+    #000 calc(100% - (--value(number) * 0.1rem)),
+    transparent 100%
+  );
+}
+@utility fade-y-* {
+  mask-image: linear-gradient(
+    0deg,
+    transparent 0,
+    #000 calc(--value(number) * 0.1rem),
+    #000 calc(100% - (--value(number) * 0.1rem)),
+    transparent 100%
+  );
+}
+@utility fade-t-* {
+  mask-image: linear-gradient(
+    0deg,
+    #000 0,
+    #000 calc(100% - (--value(number) * 0.1rem)),
+    transparent 100%
+  );
+}
+@utility fade-b-* {
+  mask-image: linear-gradient(
+    180deg,
+    #000 0,
+    #000 calc(100% - (--value(number) * 0.1rem)),
+    transparent 100%
+  );
+}
+
+@utility fade-ease-b-* {
+  --fade-size: calc(--value(number) * 0.1rem);
+
+  mask-image:
+    linear-gradient(#000, #000),
+    linear-gradient(
+      to bottom,
+      hsl(0 0% 0%) 0%,
+      hsla(0 0% 0% / 0.987) 8.1%,
+      hsla(0 0% 0% / 0.951) 15.5%,
+      hsla(0 0% 0% / 0.896) 22.5%,
+      hsla(0 0% 0% / 0.825) 29%,
+      hsla(0 0% 0% / 0.741) 35.3%,
+      hsla(0 0% 0% / 0.648) 41.2%,
+      hsla(0 0% 0% / 0.55) 47.1%,
+      hsla(0 0% 0% / 0.45) 52.9%,
+      hsla(0 0% 0% / 0.352) 58.8%,
+      hsla(0 0% 0% / 0.259) 64.7%,
+      hsla(0 0% 0% / 0.175) 71%,
+      hsla(0 0% 0% / 0.104) 77.5%,
+      hsla(0 0% 0% / 0.049) 84.5%,
+      hsla(0 0% 0% / 0.013) 91.9%,
+      transparent 100%
+    );
+  mask-repeat: no-repeat;
+  mask-position:
+    0 0,
+    bottom;
+  mask-size:
+    100% calc(100% - var(--fade-size)),
+    100% var(--fade-size);
+
+  mask-composite: add;
+  -webkit-mask-composite: source-over;
+}
+
+@utility fade-ease-t-* {
+  --fade-size: calc(--value(number) * 0.1rem);
+
+  mask-image:
+    linear-gradient(#000, #000),
+    linear-gradient(
+      to top,
+      hsl(0 0% 0%) 0%,
+      hsla(0 0% 0% / 0.987) 8.1%,
+      hsla(0 0% 0% / 0.951) 15.5%,
+      hsla(0 0% 0% / 0.896) 22.5%,
+      hsla(0 0% 0% / 0.825) 29%,
+      hsla(0 0% 0% / 0.741) 35.3%,
+      hsla(0 0% 0% / 0.648) 41.2%,
+      hsla(0 0% 0% / 0.55) 47.1%,
+      hsla(0 0% 0% / 0.45) 52.9%,
+      hsla(0 0% 0% / 0.352) 58.8%,
+      hsla(0 0% 0% / 0.259) 64.7%,
+      hsla(0 0% 0% / 0.175) 71%,
+      hsla(0 0% 0% / 0.104) 77.5%,
+      hsla(0 0% 0% / 0.049) 84.5%,
+      hsla(0 0% 0% / 0.013) 91.9%,
+      transparent 100%
+    );
+  mask-repeat: no-repeat;
+  mask-position:
+    0 var(--fade-size),
+    top;
+  mask-size:
+    100% calc(100% - var(--fade-size)),
+    100% var(--fade-size);
+
+  mask-composite: add;
+  -webkit-mask-composite: source-over;
+}
+
+@utility fade-ease-l-* {
+  --fade-size: calc(--value(number) * 0.1rem);
+
+  mask-image:
+    linear-gradient(#000, #000),
+    linear-gradient(
+      to left,
+      hsl(0 0% 0%) 0%,
+      hsla(0 0% 0% / 0.987) 8.1%,
+      hsla(0 0% 0% / 0.951) 15.5%,
+      hsla(0 0% 0% / 0.896) 22.5%,
+      hsla(0 0% 0% / 0.825) 29%,
+      hsla(0 0% 0% / 0.741) 35.3%,
+      hsla(0 0% 0% / 0.648) 41.2%,
+      hsla(0 0% 0% / 0.55) 47.1%,
+      hsla(0 0% 0% / 0.45) 52.9%,
+      hsla(0 0% 0% / 0.352) 58.8%,
+      hsla(0 0% 0% / 0.259) 64.7%,
+      hsla(0 0% 0% / 0.175) 71%,
+      hsla(0 0% 0% / 0.104) 77.5%,
+      hsla(0 0% 0% / 0.049) 84.5%,
+      hsla(0 0% 0% / 0.013) 91.9%,
+      transparent 100%
+    );
+  mask-repeat: no-repeat;
+  mask-position:
+    var(--fade-size) 0,
+    left;
+  mask-size:
+    calc(100% - var(--fade-size)) 100%,
+    var(--fade-size) 100%;
+
+  mask-composite: add;
+  -webkit-mask-composite: source-over;
+}
+
+@utility fade-ease-r-* {
+  --fade-size: calc(--value(number) * 0.1rem);
+
+  mask-image:
+    linear-gradient(#000, #000),
+    linear-gradient(
+      to right,
+      hsl(0 0% 0%) 0%,
+      hsla(0 0% 0% / 0.987) 8.1%,
+      hsla(0 0% 0% / 0.951) 15.5%,
+      hsla(0 0% 0% / 0.896) 22.5%,
+      hsla(0 0% 0% / 0.825) 29%,
+      hsla(0 0% 0% / 0.741) 35.3%,
+      hsla(0 0% 0% / 0.648) 41.2%,
+      hsla(0 0% 0% / 0.55) 47.1%,
+      hsla(0 0% 0% / 0.45) 52.9%,
+      hsla(0 0% 0% / 0.352) 58.8%,
+      hsla(0 0% 0% / 0.259) 64.7%,
+      hsla(0 0% 0% / 0.175) 71%,
+      hsla(0 0% 0% / 0.104) 77.5%,
+      hsla(0 0% 0% / 0.049) 84.5%,
+      hsla(0 0% 0% / 0.013) 91.9%,
+      transparent 100%
+    );
+  mask-repeat: no-repeat;
+  mask-position:
+    0 0,
+    right;
+  mask-size:
+    calc(100% - var(--fade-size)) 100%,
+    var(--fade-size) 100%;
+
+  mask-composite: add;
+  -webkit-mask-composite: source-over;
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+@custom-variant data-checked (&[data-checked]);
