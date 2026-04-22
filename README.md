@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://www.marqy.party/public/marqy-logo.svg" align="center" height="40" />
+<img src="https://www.marqy.party/marqy-logo.svg" align="center" height="40" />
 </p>
 
 <p align="center">
