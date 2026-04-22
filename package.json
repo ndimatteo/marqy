@@ -31,7 +31,7 @@
   },
   "types": "dist/marqy.d.ts",
   "scripts": {
-    "build": "microbundle build src/marqy.tsx --jsx React.createElement && cp mary.css dist/marqy.css",
+    "build": "microbundle build src/marqy.tsx --jsx React.createElement && cp marqy.css dist/marqy.css",
     "watch": "microbundle watch src/marqy.tsx --jsx React.createElement",
     "install:examples": "yarn --cwd examples install",
     "examples": "yarn --cwd examples dev",
