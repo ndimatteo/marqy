@@ -1,7 +1,7 @@
 {
   "name": "marqy",
   "version": "1.0.0",
-  "description": "Accessible, performant React marquees.",
+  "description": "High-fidelity loops for modern interfaces.",
   "keywords": [
     "react",
     "marquee",
