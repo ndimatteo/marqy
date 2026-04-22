@@ -70,6 +70,10 @@ export default function MarqyHero() {
             <Divider value=" + " />
             CSS-based animations
           </p>
+          <p className="text-p1 py-10 sm:py-20 uppercase whitespace-pre">
+            <Divider value=" + " />
+            Accessible by default
+          </p>
         </div>
       </Marqy>
     </div>

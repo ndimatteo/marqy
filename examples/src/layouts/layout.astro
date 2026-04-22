@@ -7,16 +7,23 @@ import Footer from '../components/Footer.astro'
 
 interface Props {
   title?: string
+  description?: string
 }
 
-const { title = 'MARQY: High-fidelity loops for modern interfaces' } = Astro.props
+const {
+  title = 'MARQY: High-fidelity loops for modern interfaces',
+  description = 'Accessible + performant React marquees at less than 1 Kb gzipped.'
+} = Astro.props
 ---
 
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#000000" />
+    
     <title>{title}</title>
+    <meta name="description" content={description} />
     <Font cssVariable="--font-akkurat-mono" preload />
     <Font cssVariable="--font-grtsk" preload />
     <Font cssVariable="--font-grtsk-wide" preload />
@@ -24,6 +31,16 @@ const { title = 'MARQY: High-fidelity loops for modern interfaces' } = Astro.pro
     <link rel="icon" href="/favicon.ico" sizes="32x32">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url.href} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="/marqy-share.png" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="/marqy-share.png" />
+
     <script>
       (async function () {
         const TEXT = 'MARQY/';
