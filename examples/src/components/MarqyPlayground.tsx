@@ -52,7 +52,7 @@ export default function MarqyPlayground() {
   const [itemCount, setItemCount] = useState<number>(0)
   const [duration, setDuration] = useState('')
 
-  const DEFAULT_TEXT = 'marqy'
+  const DEFAULT_TEXT = 'edit this text'
   const [size, setSize] = useState({ width: width - 40, height: -40 })
   const [isResizing, setIsResizing] = useState(false)
   const [text, setText] = useState(DEFAULT_TEXT)

@@ -69,17 +69,13 @@
   /* Misc. */
   --ease-in-out-quart: cubic-bezier(0.77, 0, 0.175, 1);
 
-  --animate-flicker-bg: flickerBackground 0.1s steps(2, end) 3 forwards;
-  --animate-flicker-opacity: flickerOpacity 0.1s steps(2, end) 3 forwards;
-  @keyframes flickerBackground {
-    from {
-      background: transparent;
-    }
-  }
-
+  --animate-flicker-opacity: flickerOpacity 0.075s steps(2, end) 4 forwards;
   @keyframes flickerOpacity {
     from {
       opacity: 0;
+    }
+    to {
+      opacity: 1;
     }
   }
 
