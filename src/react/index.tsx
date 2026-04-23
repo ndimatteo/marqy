@@ -1,8 +1,17 @@
 import * as React from 'react'
+import {
+  type MarqyDirection,
+  type MarqyDimensions,
+  calcReps,
+  calcAnimationDuration,
+  createResizeObserver,
+} from '../core'
+
+export type { MarqyDirection }
 
 export interface MarqyProps extends React.ComponentPropsWithoutRef<'div'> {
   speed?: number
-  direction?: 'left' | 'right' | 'up' | 'down'
+  direction?: MarqyDirection
   pauseOnHover?: boolean
   manual?: boolean
   children: React.ReactNode
@@ -24,18 +33,16 @@ export function Marqy({
   const isVertical = direction === 'up' || direction === 'down'
 
   const getAnimationDuration = React.useCallback(
-    (itemDimension: number) => {
-      return `${((itemDimension ?? 0) * reps) / (100 * speed)}s`
-    },
+    (itemDimension: number) => calcAnimationDuration(itemDimension, reps, speed),
     [reps, speed]
   )
 
   React.useEffect(() => {
     if (!isVertical && containerDimensions.width && itemDimensions.width) {
-      setReps(Math.ceil(containerDimensions.width / itemDimensions.width))
+      setReps(calcReps(containerDimensions.width, itemDimensions.width))
     }
     if (isVertical && containerDimensions.height && itemDimensions.height) {
-      setReps(Math.ceil(containerDimensions.height / itemDimensions.height))
+      setReps(calcReps(containerDimensions.height, itemDimensions.height))
     }
   }, [isVertical, containerDimensions, itemDimensions])
 
@@ -63,7 +70,7 @@ export function Marqy({
                 <div
                   key={rep}
                   ref={isFirstItem ? item : null}
-                  aria-hidden={!isFirstItem || null}
+                  aria-hidden={!isFirstItem || undefined}
                   data-marqy-item=""
                 >
                   {children}
@@ -78,19 +85,13 @@ export function Marqy({
 }
 
 function useDimensions() {
-  const [dimensions, setDimensions] = React.useState({ width: 0, height: 0 })
-  const observer = React.useRef<ResizeObserver | null>(null)
+  const [dimensions, setDimensions] = React.useState<MarqyDimensions>({ width: 0, height: 0 })
+  const cleanupRef = React.useRef<(() => void) | null>(null)
 
   const ref = React.useCallback((node: HTMLElement | null) => {
-    observer.current?.disconnect()
+    cleanupRef.current?.()
     if (!node) return
-    observer.current = new ResizeObserver(([entry]) =>
-      setDimensions({
-        width: entry.contentRect.width,
-        height: entry.contentRect.height,
-      })
-    )
-    observer.current.observe(node)
+    cleanupRef.current = createResizeObserver(node, setDimensions)
   }, [])
 
   return [ref, dimensions] as const

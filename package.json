@@ -1,9 +1,14 @@
 {
   "name": "marqy",
-  "version": "1.0.3",
+  "version": "1.1.0",
+  "type": "module",
   "description": "High-fidelity loops for modern interfaces.",
   "keywords": [
     "react",
+    "vue",
+    "svelte",
+    "vanilla",
+    "web-component",
     "marquee",
     "react-marquee",
     "marqy"
@@ -17,22 +22,41 @@
     "url": "https://github.com/ndimatteo/marqy/issues"
   },
   "homepage": "https://github.com/ndimatteo/marqy",
-  "main": "dist/marqy.js",
-  "module": "dist/marqy.esm.js",
-  "unpkg": "dist/marqy.umd.js",
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
   "exports": {
-    "./dist/marqy.css": "./dist/marqy.css",
     ".": {
-      "types": "./dist/marqy.d.ts",
-      "umd": "./dist/marqy.umd.js",
-      "import": "./dist/marqy.esm.js",
-      "require": "./dist/marqy.js"
-    }
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.cjs.js"
+    },
+    "./react": {
+      "types": "./dist/react.d.ts",
+      "import": "./dist/react.esm.js",
+      "require": "./dist/react.cjs.js"
+    },
+    "./vue": {
+      "types": "./dist/vue.d.ts",
+      "import": "./dist/vue.esm.js"
+    },
+    "./svelte": {
+      "types": "./dist/svelte.d.ts",
+      "import": "./dist/svelte.esm.js"
+    },
+    "./vanilla": {
+      "types": "./dist/vanilla.d.ts",
+      "import": "./dist/vanilla.esm.js",
+      "require": "./dist/vanilla.cjs.js"
+    },
+    "./dist/marqy.css": "./dist/marqy.css"
   },
-  "types": "dist/marqy.d.ts",
   "scripts": {
-    "build": "microbundle build src/marqy.tsx --jsx React.createElement && cp marqy.css dist/marqy.css",
-    "watch": "microbundle watch src/marqy.tsx --jsx React.createElement",
+    "build": "vite build",
+    "watch": "vite build --watch",
     "install:examples": "yarn --cwd examples install",
     "examples": "yarn --cwd examples dev",
     "predev": "yarn build",
@@ -42,24 +66,62 @@
   },
   "size-limit": [
     {
-      "path": "dist/marqy.esm.js",
+      "path": "dist/index.esm.js",
       "limit": "2 KB"
+    },
+    {
+      "path": "dist/react.esm.js",
+      "limit": "2 KB"
+    },
+    {
+      "path": "dist/vue.esm.js",
+      "limit": "2 KB"
+    },
+    {
+      "path": "dist/svelte.esm.js",
+      "limit": "2 KB"
+    },
+    {
+      "path": "dist/vanilla.esm.js",
+      "limit": "3 KB"
     }
   ],
   "devDependencies": {
     "@size-limit/preset-small-lib": "^12.1.0",
+    "@sveltejs/vite-plugin-svelte": "^5.0.0",
+    "@types/node": "^20.0.0",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
+    "@vitejs/plugin-react": "^4.0.0",
+    "@vitejs/plugin-vue": "^5.0.0",
     "concurrently": "^9.1.2",
-    "microbundle": "^0.15.1",
-    "parcel-bundler": "^1.12.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "size-limit": "^12.1.0"
+    "size-limit": "^12.1.0",
+    "svelte": "^5.0.0",
+    "typescript": "^6.0.3",
+    "vite": "^6.0.0",
+    "vite-plugin-dts": "^4.0.0",
+    "vue": "^3.0.0"
   },
   "peerDependencies": {
     "react": "17.x || 18.x || 19.x",
-    "react-dom": "17.x || 18.x || 19.x"
+    "react-dom": "17.x || 18.x || 19.x",
+    "svelte": "^5.0.0",
+    "vue": "^3.0.0"
   },
-  "dependencies": {}
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    },
+    "vue": {
+      "optional": true
+    },
+    "svelte": {
+      "optional": true
+    }
+  }
 }

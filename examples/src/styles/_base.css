@@ -146,10 +146,36 @@
 
   pre {
     padding: calc(var(--spacing) * 20);
+    padding-right: calc(var(--spacing) * 80);
     border-radius: calc(5 * 0.1rem);
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 
-  [data-reveal] {
-    opacity: 0;
+  input[type='range'] {
+    appearance: none;
+
+    &::-webkit-slider-thumb {
+      appearance: none;
+      width: calc(var(--spacing) * 10);
+      height: calc(var(--spacing) * 10);
+      border-radius: 3px;
+      cursor: grab;
+      background-color: var(--color-white);
+    }
+
+    &::-moz-range-thumb {
+      width: calc(var(--spacing) * 10);
+      height: calc(var(--spacing) * 10);
+      border-radius: 3px;
+      cursor: grab;
+      background-color: var(--color-white);
+    }
   }
 }

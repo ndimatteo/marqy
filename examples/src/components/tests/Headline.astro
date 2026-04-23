@@ -1,0 +1,22 @@
+---
+interface Props {
+  icon?: string
+  title?: string
+  subtitle?: string
+}
+
+const { title, subtitle, icon } = Astro.props
+---
+
+<div class="flex justify-between items-center bg-white text-black p-10 rounded-5">
+  <div class="flex items-center gap-x-5">
+    {icon && (
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" focusable="false" aria-hidden="true" class="size-25 shrink-0 fill-current">
+        <use href={`#${icon}`}></use>
+      </svg>
+    )}
+    <h2 class="text-h3 uppercase">{title}</h2>
+  </div>
+
+  <p class="text-p0 opacity-60 pr-5">{subtitle}</p>
+</div>

@@ -1,9 +1,11 @@
 import react from '@astrojs/react'
+import svelte from '@astrojs/svelte'
+import vue from '@astrojs/vue'
 import tailwindcss from '@tailwindcss/vite'
 import { defineConfig, fontProviders } from 'astro/config'
 
 export default defineConfig({
-  integrations: [react()],
+  integrations: [react(), vue(), svelte()],
   fonts: [
     {
       provider: fontProviders.local(),
@@ -96,6 +98,11 @@ export default defineConfig({
     },
     resolve: {
       dedupe: ['react', 'react-dom'],
+    },
+    server: {
+      watch: {
+        ignored: ['**/node_modules/marqy/src/**'],
+      },
     },
   },
 })

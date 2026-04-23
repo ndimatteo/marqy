@@ -1,0 +1,39 @@
+---
+import Layout from '../layouts/layout.astro'
+import Headline from '../components/tests/Headline.astro'
+
+import MarqyIntro from '../components/tests/MarqyIntro'
+import MarqyReact from '../components/tests/MarqyReact'
+import MarqyVueTest from '../components/tests/MarqyVue.vue'
+import MarqySvelteTest from '../components/tests/MarqySvelte.svelte'
+import MarqyVanilla from '../components/tests/MarqyVanilla.astro'
+---
+
+<Layout title="MARQY: Framework Tests">
+  <div class="flex-1 flex flex-col">
+    <MarqyIntro client:load />
+
+    <div class="flex-1 grid grid-cols-2 border-t gap-px bg-white">
+      <div class="flex flex-col gap-10 p-20 sm:p-40 bg-black justify-center">
+        <Headline title="JavaScript" subtitle="marqy/vanilla" icon="javascript" />
+        <MarqyVanilla />
+      </div>
+      
+      <div class="flex flex-col gap-10 p-20 sm:p-40 bg-black justify-center">
+        <Headline title="React" subtitle="marqy/react" icon="react" />
+        <MarqyReact client:load />
+      </div>
+
+      <div class="flex flex-col gap-10 p-20 sm:p-40 bg-black justify-center">
+        <Headline title="Vue" subtitle="marqy/vue" icon="vue" />
+        <MarqyVueTest client:load />
+      </div>
+
+      <div class="flex flex-col gap-10 p-20 sm:p-40 bg-black justify-center">
+        <Headline title="Svelte" subtitle="marqy/svelte" icon="svelte" />
+        <MarqySvelteTest client:only="svelte" />
+      </div>
+    </div>
+  </div>
+
+</Layout>

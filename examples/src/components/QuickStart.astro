@@ -2,15 +2,52 @@
 import { Code } from 'astro:components'
 import SectionHeadline from '../components/SectionHeadline'
 import CopyButton from '../components/CopyButton'
+import QuickStartTabs from '../components/QuickStartTabs'
 
 const installCode = `yarn add marqy`
 
-const usageCode = `import { Marqy } from 'marqy'
+const javascriptCode = `<script>
+  import 'marqy/vanilla'
+  import 'marqy/dist/marqy.css'
+</script>
+
+<marqy-loop speed="1" direction="left" pause-on-hover>
+  <span>Your content here</span>
+</Marqy-loop>`
+
+const reactCode = `import { Marqy } from 'marqy'
 import 'marqy/dist/marqy.css'
 
 <Marqy speed={1} direction="left" pauseOnHover>
   <span>Your content here</span>
 </Marqy>`
+
+const svelteCode = `<script>
+  import { Marqy } from 'marqy/svelte'
+  import 'marqy/dist/marqy.css'
+</script>
+
+<Marqy speed={1} direction="left" pauseOnHover>
+  <span>Your content here</span>
+</Marqy>`
+
+const vueCode = `<script setup>
+  import { Marqy } from 'marqy/vue'
+  import 'marqy/dist/marqy.css'
+</script>
+
+<template>
+  <Marqy :speed="1" direction="left" :pause-on-hover="true">
+    <span>Your content here</span>
+  </Marqy>
+</template>`
+
+const ports = [
+  { name: 'JavaScript', icon: 'javascript', code: javascriptCode, lang: 'html' },
+  { name: 'React', icon: 'react', code: reactCode, lang: 'jsx' },
+  { name: 'Svelte', icon: 'svelte', code: svelteCode, lang: 'svelte' },
+  { name: 'Vue', icon: 'vue', code: vueCode, lang: 'vue' },
+]
 
 const props = [
   { name: 'speed', type: 'number', default: '0.5', description: 'Scroll speed multiplier' },
@@ -23,22 +60,18 @@ const props = [
 
 <section class="md:p-40 relative overflow-hidden transform-[translateZ(0)] border-t">
   <SectionHeadline text="Quick Start" client:load />
-  <div class="grid grid-cols-2 gap-20 sm:gap-40 p-20 md:px-80 md:py-0 items-center">
+  <div class="grid grid-cols-2 gap-20 sm:gap-40 p-20 md:px-80 md:py-0">
     <div class="flex flex-col gap-20 sm:gap-40 col-span-2 lg:col-span-1">
       <div>
-        <div class="flex justify-between mb-10 items-center bg-white text-black pl-10 rounded-5">
+        <div class="flex justify-between mb-10 items-center bg-white text-black p-10 h-40 rounded-5">
           <p class="text-h3 uppercase">Install</p>
+        </div>
+        <div class="relative">
+          <Code code={installCode} lang="sh" theme="css-variables" />
           <CopyButton text={installCode} client:load />
         </div>
-        <Code code={installCode} lang="sh" theme="css-variables" />
       </div>
-      <div>
-        <div class="flex justify-between mb-10 items-center bg-white text-black pl-10 rounded-5">
-          <p class="text-h3 uppercase">Usage</p>
-          <CopyButton text={usageCode} client:load />
-        </div>
-        <Code code={usageCode} lang="jsx" theme="css-variables" />
-      </div>
+      <QuickStartTabs ports={ports} client:load />
     </div>
     <div class="col-span-2 lg:col-span-1">
       <!-- <p class="text-p1 border-b pb-10">Props</p> -->

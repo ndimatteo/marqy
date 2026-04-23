@@ -1,3 +1,7 @@
+marqy-loop {
+  display: block;
+}
+
 [data-marqy] {
   position: relative;
   width: 100%;
