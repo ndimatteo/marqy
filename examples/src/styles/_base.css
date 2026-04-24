@@ -163,19 +163,27 @@
 
     &::-webkit-slider-thumb {
       appearance: none;
-      width: calc(var(--spacing) * 10);
-      height: calc(var(--spacing) * 10);
+      width: calc(var(--spacing) * 25);
+      height: calc(var(--spacing) * 14);
       border-radius: 3px;
       cursor: grab;
       background-color: var(--color-white);
     }
 
     &::-moz-range-thumb {
-      width: calc(var(--spacing) * 10);
-      height: calc(var(--spacing) * 10);
+      width: calc(var(--spacing) * 25);
+      height: calc(var(--spacing) * 14);
       border-radius: 3px;
       cursor: grab;
       background-color: var(--color-white);
+    }
+
+    &:active {
+      cursor: grabbing;
+    }
+
+    &:active::-webkit-slider-thumb {
+      cursor: grabbing;
     }
   }
 }
